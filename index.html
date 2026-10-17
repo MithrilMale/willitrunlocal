@@ -1,0 +1,35 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Will It Run Local (prototype) - Which Mac runs which local AI model?</title>
+<meta name="description" content="Pick a Mac to see which local AI models fit, or pick a model to see the cheapest Mac that runs it."><link rel="stylesheet" href="style.css"></head><body>
+<header><h1>Which Mac runs which local AI model?</h1>
+<p class="sub">Pick a Mac to see which open models fit. Pick a model to see the cheapest Mac that runs it. <b>Prototype - Will It Run Local (willitrunlocal.com).</b></p>
+<div class="banner disc"><b>Affiliate disclosure:</b> Some links on this site will be Amazon affiliate links, and as an Amazon Associate we will earn from qualifying purchases. Sponsored placements will always be labeled "Sponsored". Prices and fit results are not influenced by affiliates or sponsors. <span class="mute">(Prototype note: affiliate links below are inert placeholders and no Associates account exists yet.)</span></div>
+<div class="banner"><b>How to read the numbers:</b> memory fit is <i>calculated</i> from real model file sizes and model configs (see assumptions). Speeds (tokens/sec) are shown <i>only</i> where a public benchmark exists, with a source link. Blank means "no public measurement", not "slow".</div></header>
+<main>
+<nav class="tabs"><button data-tab="mac">I have / am considering a Mac</button><button data-tab="model">I want to run a model</button></nav>
+<div class="card controls">
+ <label>Quantization<select id="quantSel"><option value="Q4">Q4_K_M (4-bit, smaller)</option><option value="Q8">Q8_0 (8-bit, higher quality)</option></select></label>
+ <label>Context length<select id="ctxSel"><option value="4096">4K</option><option value="8192" selected>8K</option><option value="32768">32K</option><option value="131072">128K</option></select></label>
+ <label class="inline"><input type="checkbox" id="showTuned" checked> include "needs GPU-limit tweak"</label>
+ <label class="inline"><input type="checkbox" id="showNo"> show non-fits</label>
+ <label class="inline"><input type="checkbox" id="ceil"> show calculated bandwidth ceiling (not measured)</label>
+</div>
+<p class="small mute" id="assumptions"></p>
+<p class="small mute hide" id="ceilNote">Bandwidth ceiling = memory bandwidth ÷ bytes read per generated token. It is a theoretical upper bound, not a benchmark.</p>
+
+<section id="tabMac"><div class="card"><label>Mac<select id="macSel"></select></label><div id="macInfo"></div></div>
+<table id="macTable"><thead><tr><th>Model</th><th>Fit</th><th class="num">Weights GiB</th><th class="num">KV GiB</th><th class="num">Need GiB</th><th>Measured speed (public sources)</th></tr></thead><tbody></tbody></table></section>
+
+<section id="tabModel" class="hide"><div class="card"><label>Model<select id="modelSel"></select></label><div id="modelInfo"></div></div>
+<table id="modelTable"><thead><tr><th>Mac</th><th>Fit</th><th class="num">US price</th><th class="num">Memory used</th><th>Measured speed (public sources)</th><th>Buy</th></tr></thead><tbody></tbody></table></section>
+
+<h2>Data sources</h2>
+<ul class="small">
+<li><b>Mac specs, bandwidth, US prices:</b> apple.com Buy pages and Tech Specs, retrieved 2026-10-16. Memory-upgrade prices for Mac mini / Mac Studio come from Apple's configurator as reported by <a href="https://daringfireball.net/2026/08/configurations_and_pricing_for_new_mac_minis_and_mac_studios" target="_blank" rel="noopener">Daring Fireball</a> (verify before buying). Where no public upgrade price was found, price is shown as "not captured".</li>
+<li><b>Model sizes:</b> actual GGUF file sizes on Hugging Face (Unsloth / bartowski repos); <b>KV cache:</b> computed from each model's config.json.</li>
+<li><b>Speeds:</b> <a href="https://github.com/ggml-org/llama.cpp/discussions/4167" target="_blank" rel="noopener">llama.cpp Apple Silicon benchmark thread</a>, <a href="https://github.com/BAEM1N/llm-bench" target="_blank" rel="noopener">BAEM1N/llm-bench</a>, <a href="https://github.com/stared/benching-local-llms-on-apple-silicon" target="_blank" rel="noopener">stared/benching-local-llms-on-apple-silicon</a>, oMLX benchmarks, Local AI Registry, and one secondary blog report. Each speed links to its source.</li>
+</ul>
+<p class="small"><a href="about.html">Full methodology, assumptions and known gaps →</a></p>
+</main>
+<footer><p>Will It Run Local is independent and not affiliated with or endorsed by Apple Inc. Mac, MacBook, iMac and Apple silicon are trademarks of Apple Inc. As an Amazon Associate we earn from qualifying purchases (once enrolled; placeholder in this prototype).</p></footer>
+<script src="data.js"></script><script src="config.js"></script><script src="app.js"></script></body></html>
